@@ -58,7 +58,7 @@
 
 <script setup>
 import ProfileDialogComponent from "./ProfileDialog.component.vue";
-import { reactive, computed } from "vue";
+import { reactive, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 const $store = useStore();
@@ -68,9 +68,14 @@ const $route = useRoute();
 const data = reactive({
     profileDialogVisible: false,
 });
+onBeforeMount(async () => {
+    if (!$store.state.current.crate) {
+        $router.push("/dashboard");
+    }
+});
 
-let profile = computed(() => $store.state.current.profile);
-let folder = computed(() => $store.state.current.fileHandle.name);
+let profile = computed(() => $store.state.current?.profile);
+let folder = computed(() => $store.state.current.fileHandle?.name);
 
 function goToDashboard() {
     $store.commit("setCrate", undefined);

@@ -30,8 +30,10 @@ export async function loadFile() {
     let fileHandle;
     [fileHandle] = await window.showOpenFilePicker();
     const file = await fileHandle.getFile();
-    let crate = await JSON.parse(await file.text());
-    if (!crate) {
+    let crate;
+    try {
+        crate = await JSON.parse(await file.text());
+    } catch (error) {
         crate = getCrateSkeleton();
     }
     return { fileHandle, crate };
@@ -48,11 +50,15 @@ export async function loadFolder() {
         }
     }
     if (hasCrateFile) {
+        let crate;
         let fileHandle = await folderHandle.getFileHandle("ro-crate-metadata.json");
 
         const file = await fileHandle.getFile();
-        let crate = await JSON.parse(await file.text());
-        if (!crate) crate = getCrateSkeleton();
+        try {
+            crate = await JSON.parse(await file.text());
+        } catch (error) {
+            crate = getCrateSkeleton();
+        }
         return { folderHandle, fileHandle, crate };
     } else {
         let crate = getCrateSkeleton();

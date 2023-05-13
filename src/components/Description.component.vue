@@ -15,7 +15,9 @@
 import { reactive } from "vue";
 import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 const $store = useStore();
+const $router = useRouter();
 
 const data = reactive({
     loading: false,
@@ -27,6 +29,7 @@ const data = reactive({
 });
 
 onMounted(async () => {
+    if (!$store.state.current.crate) $router.push("/dashboard");
     data.crate = $store.state.current.crate;
 });
 
