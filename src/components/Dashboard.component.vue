@@ -3,37 +3,47 @@
         <el-card>
             <template #header> Select an RO Crate file to work on </template>
             <div class="p-4 my-2">
-                Get started by selecting an RO Crate file to work on (it can have any name). It can
-                be on your local disk or cloud storage that is connected to your computer; e.g.
-                Dropbox or Google Drive.
+                Get started by selecting a file containing an RO Crate. It can be on your local disk
+                or cloud storage that is connected to your computer; e.g. Dropbox or Google Drive.
             </div>
-            <el-button @click="loadCrate" type="primary"
+            <el-button @click="loadFile" type="primary"
                 >Select an RO Crate File to work on</el-button
             >
         </el-card>
 
-        <!-- <el-card>
+        <el-card>
             <template #header> Select a folder of data to describe </template>
             <div class="p-4 my-2">
                 Get started by selecting a folder to describe. If it contains an RO Crate file, that
-                file will be loaded. It can be on your local disk or cloud storage that is connected
-                to your computer; e.g. Dropbox or Google Drive.
+                file will be loaded. If not, a default RO Crate file will be created for you. It can
+                be on your local disk or cloud storage that is connected to your computer; e.g.
+                Dropbox or Google Drive.
             </div>
-            <el-button @click="loadCrate" type="primary">Select a folder to work on</el-button>
-        </el-card> -->
+            <el-button @click="loadFolder" type="primary">Select a folder to work on</el-button>
+        </el-card>
     </div>
 </template>
 
 <script setup>
-import { loadCrate as loadCrateHandler, loadFolder as LoadFolderHandler } from "./lib";
+import { loadFile as loadFileHandler, loadFolder as loadFolderHandler } from "./lib";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const $store = useStore();
 const $router = useRouter();
 
-async function loadCrate() {
+async function loadFile() {
     try {
-        let { folderHandle, fileHandle, crate } = await loadCrateHandler();
+        let { fileHandle, crate } = await loadFileHandler();
+        await $store.dispatch("storeFolder", { fileHandle, crate });
+        $router.push("/describe");
+    } catch (error) {
+        // ignore it - the user likely cancelled the operation
+    }
+}
+
+async function loadFolder() {
+    try {
+        let { folderHandle, fileHandle, crate } = await loadFolderHandler();
         await $store.dispatch("storeFolder", { folderHandle, fileHandle, crate });
         $router.push("/describe");
     } catch (error) {

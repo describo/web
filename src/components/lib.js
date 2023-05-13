@@ -25,7 +25,7 @@ export async function storeRemove() {
     await remove(store.path);
 }
 
-export async function loadCrate() {
+export async function loadFile() {
     console.log("F:loadCrate");
     let fileHandle;
     [fileHandle] = await window.showOpenFilePicker();
@@ -39,7 +39,7 @@ export async function loadCrate() {
 
 export async function loadFolder() {
     console.log("F:loadFolder");
-    const folderHandle = await window.showDirectoryPicker();
+    let folderHandle = await window.showDirectoryPicker();
 
     let hasCrateFile = false;
     for await (const entry of folderHandle.values()) {
@@ -48,14 +48,17 @@ export async function loadFolder() {
         }
     }
     if (hasCrateFile) {
-        const fileHandle = await folderHandle.getFileHandle("ro-crate-metadata.json");
+        let fileHandle = await folderHandle.getFileHandle("ro-crate-metadata.json");
+
         const file = await fileHandle.getFile();
-        crate = JSON.parse(await file.text());
+        let crate = await JSON.parse(await file.text());
+        if (!crate) crate = getCrateSkeleton();
+        console.log(folderHandle, fileHandle, crate);
         return { folderHandle, fileHandle, crate };
     } else {
-        crate = getCrateSkeleton();
+        let crate = getCrateSkeleton();
+        return { folderHandle, crate };
     }
-    return { folderHandle, fileHandle, crate };
 }
 
 export async function loadProfileFromDisk() {
