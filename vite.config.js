@@ -19,7 +19,7 @@ export default defineConfig({
         include: ["element-plus", "lodash", "@describo/crate-builder-component"],
     },
     build: {
-        base: process.env.NODE_ENV === "development" ? "/" : "/web",
+        base: process.env.NODE_ENV === "development" ? "/" : "/web/",
         outDir: "docs",
     },
 });
