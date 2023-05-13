@@ -18,4 +18,7 @@ export default defineConfig({
     optimizeDeps: {
         include: ["element-plus", "lodash", "@describo/crate-builder-component"],
     },
+    build: {
+        outDir: "docs",
+    },
 });
