@@ -5,7 +5,7 @@
         </div>
         <div v-else class="text-center bg-blue-200 p-4">
             Oh dear - this browser doesn't have the capability required for this to work! Please use
-            Google Chrome or a Chrome based browser (Brave Browser, Microsoft Edge).
+            Google Chrome. Hopefully the other browsers will have support soon.
         </div>
     </div>
 </template>
