@@ -53,11 +53,13 @@ export async function loadFolder() {
         const file = await fileHandle.getFile();
         let crate = await JSON.parse(await file.text());
         if (!crate) crate = getCrateSkeleton();
-        console.log(folderHandle, fileHandle, crate);
         return { folderHandle, fileHandle, crate };
     } else {
         let crate = getCrateSkeleton();
-        return { folderHandle, crate };
+        let fileHandle = await folderHandle.getFileHandle("ro-crate-metadata.json", {
+            create: true,
+        });
+        return { folderHandle, fileHandle, crate };
     }
 }
 
