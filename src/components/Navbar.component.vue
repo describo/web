@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-row bg-indigo-200 p-2 space-x-4">
         <div class="text-lg mr-2 flex flex-row space-x-2">
-            <img alt="Describo" class="min-h-full" src="src/assets/ro-crate-logo.svg" width="36" />
+            <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
             <div class="pt-1 text-xl">
                 <a href="https://describo.github.io" target="_blank" class="text-indigo-800"
                     >describo</a
