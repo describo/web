@@ -8,7 +8,6 @@
             @save:crate="storeCrate"
         />
         <div v-if="data.error">There seems to be an issue with this application!</div>
-        >
     </div>
 </template>
 
