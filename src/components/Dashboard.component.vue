@@ -1,6 +1,24 @@
 <template>
     <div class="flex flex-col space-y-2">
         <el-card>
+            Describo is a tool to create
+            <a
+                href="https://www.researchobject.org/ro-crate/specification.html"
+                target="_blank"
+                class="text-blue-600 hover:text-orange-600"
+            >
+                Research Object Crates.
+            </a>
+            To find out more about Describo see the main website @
+            <a
+                href="https://describo.github.io"
+                target="_blank"
+                class="text-blue-600 hover:text-orange-600"
+            >
+                https://describo.github.io.
+            </a>
+        </el-card>
+        <el-card>
             <template #header> Select an RO Crate file to work on </template>
             <div class="p-4 my-2">
                 Get started by selecting a file containing an RO Crate. It can be on your local disk
