@@ -42,8 +42,12 @@
                 </div>
             </div>
             <div class="flex flex-row">
-                <el-button @click="saveCrate" type="primary">
-                    <i class="fa-solid fa-save"></i>&nbsp;save
+                <el-button
+                    @click="saveCrate"
+                    :type="data.saveButtonType"
+                    :disabled="data.saveButtonType !== 'primary'"
+                >
+                    <i class="fa-solid fa-save"></i>&nbsp;{{ data.saveButtonText }}
                 </el-button>
             </div>
         </div>
@@ -61,12 +65,15 @@ import ProfileDialogComponent from "./ProfileDialog.component.vue";
 import { reactive, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
 const $store = useStore();
 const $router = useRouter();
 const $route = useRoute();
 
 const data = reactive({
     profileDialogVisible: false,
+    saveButtonType: "primary",
+    saveButtonText: "save",
 });
 onBeforeMount(async () => {
     if (!$store.state.current.crate) {
@@ -89,10 +96,27 @@ function unloadProfile() {
     $store.commit("setProfile", undefined);
 }
 async function saveCrate() {
-    let fileHandle = $store.state.current.fileHandle;
-    let crate = $store.state.current.crate;
-    const writable = await fileHandle.createWritable();
-    await writable.write(JSON.stringify(crate, null, 2));
-    await writable.close();
+    try {
+        let fileHandle = $store.state.current.fileHandle;
+        let crate = $store.state.current.crate;
+        const writable = await fileHandle.createWritable();
+        await writable.write(JSON.stringify(crate, null, 2));
+        await writable.close();
+        data.saveButtonType = "success";
+        data.saveButtonText = "saved";
+    } catch (error) {
+        ElMessage({
+            type: "error",
+            message: `There's a problem trying to save that file!`,
+            duration: 5000,
+            center: true,
+        });
+        data.saveButtonText = "not saved";
+        data.saveButtonType = "danger";
+    }
+    setTimeout(() => {
+        data.saveButtonType = "primary";
+        data.saveButtonText = "save";
+    }, 3000);
 }
 </script>

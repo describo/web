@@ -25,19 +25,30 @@
 </template>
 
 <script setup>
+import { ElMessage } from "element-plus";
 import { loadFile as loadFileHandler, loadFolder as loadFolderHandler } from "./lib";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import has from "lodash-es/has";
 const $store = useStore();
 const $router = useRouter();
 
 async function loadFile() {
     try {
         let { fileHandle, crate } = await loadFileHandler();
+        if (!has(crate, "@context") || !has(crate, "@graph")) {
+            console.log("not a crate file");
+            throw new Error(`Not an RO Crate file`);
+        }
         await $store.dispatch("storeFolder", { fileHandle, crate });
         $router.push("/describe");
     } catch (error) {
-        // ignore it - the user likely cancelled the operation
+        ElMessage({
+            type: "error",
+            message: `That doesn't look like an RO Crate file`,
+            duration: 5000,
+            center: true,
+        });
     }
 }
 
