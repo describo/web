@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <div class="text-lg mr-2 flex flex-row space-x-2 bg-indigo-200 p-2">
             <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
@@ -25,4 +25,4 @@ let crate = computed(() => {
     let crate = $store.state.current.crate;
     return crate;
 });
-</script>
+</script> -->
