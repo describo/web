@@ -2,7 +2,7 @@
     <div class="flex flex-col">
         <describo-crate-builder
             v-if="!data.error && data.crate"
-            :crate="crate"
+            :crate="data.crate"
             :profile="profile"
             @ready="data.loading = false"
             @save:crate="storeCrate"
