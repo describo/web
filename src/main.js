@@ -8,7 +8,7 @@ import { store } from "./store.js";
 const app = createApp(App);
 app.use(router);
 app.use(store);
-app.use(DescriboCrateBuilder);
+// app.use(DescriboCrateBuilder);
 router.isReady().then(() => {
     app.mount("#app");
 });

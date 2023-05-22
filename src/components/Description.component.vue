@@ -12,6 +12,7 @@
 </template>
 
 <script setup>
+import DescriboCrateBuilder from "../../../crate-builder-component/src/crate-builder/Shell.component.vue";
 import { reactive } from "vue";
 import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
