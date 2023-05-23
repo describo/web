@@ -26,13 +26,13 @@ const mutations = {
 };
 
 const actions = {
-    async storeFolder({ commit, state }, { folderHandle, fileHandle, crate }) {
-        commit("setFolder", { folderHandle, fileHandle });
-        commit("setCrate", crate);
-    },
-    async storeProfile({ commit, state }, profile) {
-        commit("setProfile", profile);
-    },
+    // async storeFolder({ commit, state }, { folderHandle, fileHandle, crate }) {
+    //     commit("setFolder", { folderHandle, fileHandle });
+    //     commit("setCrate", crate);
+    // },
+    // async storeProfile({ commit, state }, profile) {
+    //     commit("setProfile", profile);
+    // },
 };
 
 export const store = new createStore({
