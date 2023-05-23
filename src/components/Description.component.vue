@@ -35,7 +35,6 @@ onMounted(async () => {
 });
 
 let profile = computed(() => $store.state.current.profile);
-let crate = computed(() => $store.state.current.crate);
 
 async function storeCrate({ crate }) {
     $store.commit("setCrate", crate);
