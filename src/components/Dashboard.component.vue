@@ -58,7 +58,8 @@ async function loadFile() {
             console.log("not a crate file");
             throw new Error(`Not an RO Crate file`);
         }
-        await $store.dispatch("storeFolder", { fileHandle, crate });
+        $store.commit("setFolder", { fileHandle });
+        $store.commit("setCrate", crate);
         $router.push("/describe");
     } catch (error) {
         ElMessage({
@@ -73,7 +74,8 @@ async function loadFile() {
 async function loadFolder() {
     try {
         let { folderHandle, fileHandle, crate } = await loadFolderHandler();
-        await $store.dispatch("storeFolder", { folderHandle, fileHandle, crate });
+        $store.commit("setFolder", { folderHandle, fileHandle });
+        $store.commit("setCrate", crate);
         $router.push("/describe");
     } catch (error) {
         // ignore it - the user likely cancelled the operation
