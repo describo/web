@@ -90,7 +90,7 @@ function goToDashboard() {
 }
 
 function loadProfile(profile) {
-    $store.dispatch("storeProfile", profile);
+    $store.commit("setProfile", profile);
 }
 function unloadProfile() {
     $store.commit("setProfile", undefined);
