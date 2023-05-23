@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import ShellComponent from "./components/Shell.component.vue";
 import DashboardComponent from "./components/Dashboard.component.vue";
 import DescriptionComponent from "./components/Description.component.vue";
-// import RenderCrateComponent from "./components/RenderCrate.component.vue";
+import RenderCrateComponent from "./components/RenderCrate.component.vue";
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -24,10 +24,10 @@ export const router = createRouter({
                 },
             ],
         },
-        // {
-        //     path: "/render",
-        //     name: "render",
-        //     component: RenderCrateComponent,
-        // },
+        {
+            path: "/view",
+            name: "view",
+            component: RenderCrateComponent,
+        },
     ],
 });
