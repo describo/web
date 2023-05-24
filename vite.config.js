@@ -5,6 +5,7 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 export default defineConfig({
+    base: process.env.NODE_ENV === "development" ? "/" : "/web",
     plugins: [
         vue(),
         // ...
@@ -19,7 +20,6 @@ export default defineConfig({
         include: ["element-plus", "lodash", "@describo/crate-builder-component"],
     },
     build: {
-        base: process.env.NODE_ENV === "development" ? "/" : "/web/",
         outDir: "docs",
     },
 });

@@ -5,7 +5,7 @@ import DescriptionComponent from "./components/Description.component.vue";
 import RenderCrateComponent from "./components/RenderCrate.component.vue";
 
 export const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHashHistory(process.env.NODE_ENV === "development" ? "/" : "/web"),
     routes: [
         {
             path: "/",
