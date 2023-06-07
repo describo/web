@@ -1,14 +1,14 @@
 <template>
     <div class="flex flex-row bg-indigo-200 p-2 space-x-4">
         <div class="text-lg mr-2 flex flex-row space-x-2">
-            <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
+            <!-- <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
             <div class="pt-1 text-xl">
-                <a href="https://describo.github.io" target="_blank" class="text-indigo-800">
-                    describo
-                </a>
-            </div>
+            </div> -->
+            <a href="https://describo.github.io" target="_blank" class="text-indigo-800">
+                <img :src="describoLogo" class="h-20" />
+            </a>
         </div>
-        <div class="pt-1">
+        <div class="pt-4">
             <el-select
                 v-model="data.selectedLanguage"
                 placeholder="Select a language"
@@ -24,7 +24,7 @@
             </el-select>
         </div>
         <div class="flex-grow"></div>
-        <div v-if="$route.path === '/describe'" class="flex flex-row space-x-10">
+        <div v-if="$route.path === '/describe'" class="flex flex-row space-x-10 pt-4">
             <div class="flex flex-row space-x-2">
                 <div class="pt-1"><i class="fa-solid fa-folder"></i> {{ folder }}</div>
                 <el-button @click="goToDashboard" type="danger">
@@ -76,6 +76,7 @@
 </template>
 
 <script setup>
+import describoLogo from "../assets/describo-logo10-trans.png";
 import ProfileDialogComponent from "./ProfileDialog.component.vue";
 import { reactive, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
