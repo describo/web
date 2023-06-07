@@ -5,6 +5,7 @@
             :crate="data.crate"
             :profile="profile"
             :entityId="data.entityId"
+            :language="language.code"
             :enableInternalRouting="false"
             @ready="data.loading = false"
             @save:crate="storeCrate"
@@ -34,6 +35,7 @@ const data = reactive({
     url: undefined,
 });
 
+let language = computed(() => $store.state.current.language);
 onMounted(async () => {
     if (!$store.state.current.crate) $router.push("/dashboard");
     data.crate = $store.state.current.crate;

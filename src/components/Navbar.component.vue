@@ -3,10 +3,25 @@
         <div class="text-lg mr-2 flex flex-row space-x-2">
             <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
             <div class="pt-1 text-xl">
-                <a href="https://describo.github.io" target="_blank" class="text-indigo-800"
-                    >describo</a
-                >
+                <a href="https://describo.github.io" target="_blank" class="text-indigo-800">
+                    describo
+                </a>
             </div>
+        </div>
+        <div class="pt-1">
+            <el-select
+                v-model="data.selectedLanguage"
+                placeholder="Select a language"
+                @change="setLanguage"
+            >
+                <el-option
+                    v-for="item in data.languages"
+                    :key="item.name"
+                    :label="item.name"
+                    :value="item.code"
+                >
+                </el-option>
+            </el-select>
         </div>
         <div class="flex-grow"></div>
         <div v-if="$route.path === '/describe'" class="flex flex-row space-x-10">
@@ -74,6 +89,8 @@ const data = reactive({
     profileDialogVisible: false,
     saveButtonType: "primary",
     saveButtonText: "save",
+    languages: $store.state.languages,
+    selectedLanguage: "en",
 });
 onBeforeMount(async () => {
     if (!$store.state.current.crate) {
@@ -118,5 +135,9 @@ async function saveCrate() {
         data.saveButtonType = "primary";
         data.saveButtonText = "save";
     }, 3000);
+}
+
+function setLanguage(languageCode) {
+    $store.commit("setLanguage", languageCode);
 }
 </script>

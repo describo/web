@@ -23,6 +23,10 @@ const mutations = {
             state.current.crate = { ...crate };
         }
     },
+    setLanguage(state, languageCode) {
+        let language = state.languages.filter((l) => l.code === languageCode)[0];
+        state.current.language = { ...language };
+    },
 };
 
 const actions = {
@@ -44,7 +48,12 @@ export const store = new createStore({
 
 function resetState() {
     return {
+        languages: [
+            { name: "English", code: "en" },
+            { name: "Magyar", code: "hu" },
+        ],
         current: {
+            language: { name: "English", value: "en" },
             folderHandle: undefined,
             fileHandle: undefined,
             crate: undefined,
