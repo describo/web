@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row bg-indigo-200 p-2 space-x-4">
+    <div class="sticky top-0 z-50 flex flex-row bg-indigo-200 p-2 space-x-4">
         <div class="text-lg mr-2 flex flex-row space-x-2">
             <!-- <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
             <div class="pt-1 text-xl">
