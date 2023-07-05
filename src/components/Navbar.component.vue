@@ -100,7 +100,13 @@ onBeforeMount(async () => {
 });
 
 let profile = computed(() => $store.state.current?.profile);
-let folder = computed(() => $store.state.current.fileHandle?.name);
+let folder = computed(() => {
+    if ($store.state.current.folderHandle?.name) {
+        return `${$store.state.current?.folderHandle?.name}/ro-crate-metadata.json`;
+    } else {
+        return $store.state.current.fileHandle?.name;
+    }
+});
 
 function goToDashboard() {
     $store.commit("setCrate", undefined);
