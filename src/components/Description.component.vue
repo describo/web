@@ -7,6 +7,7 @@
             :entityId="data.entityId"
             :language="language.code"
             :enableInternalRouting="false"
+            tab-location="right"
             @ready="data.loading = false"
             @save:crate="storeCrate"
             @navigation="handleNavigation"
