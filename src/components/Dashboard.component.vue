@@ -18,16 +18,6 @@
                 https://describo.github.io.
             </a>
         </el-card>
-        <el-card>
-            <template #header> Select an RO Crate file to work on </template>
-            <div class="p-4 my-2">
-                Get started by selecting a file containing an RO Crate. It can be on your local disk
-                or cloud storage that is connected to your computer; e.g. Dropbox or Google Drive.
-            </div>
-            <el-button @click="loadFile" type="primary"
-                >Select an RO Crate File to work on</el-button
-            >
-        </el-card>
 
         <el-card>
             <template #header> Select a folder of data to describe </template>
@@ -51,25 +41,25 @@ import has from "lodash-es/has";
 const $store = useStore();
 const $router = useRouter();
 
-async function loadFile() {
-    try {
-        let { fileHandle, crate } = await loadFileHandler();
-        if (!has(crate, "@context") || !has(crate, "@graph")) {
-            console.log("not a crate file");
-            throw new Error(`Not an RO Crate file`);
-        }
-        $store.commit("setFolder", { fileHandle });
-        $store.commit("setCrate", crate);
-        $router.push("/describe");
-    } catch (error) {
-        ElMessage({
-            type: "error",
-            message: `That doesn't look like an RO Crate file`,
-            duration: 5000,
-            center: true,
-        });
-    }
-}
+// async function loadFile() {
+//     try {
+//         let { fileHandle, crate } = await loadFileHandler();
+//         if (!has(crate, "@context") || !has(crate, "@graph")) {
+//             console.log("not a crate file");
+//             throw new Error(`Not an RO Crate file`);
+//         }
+//         $store.commit("setFolder", { fileHandle });
+//         $store.commit("setCrate", crate);
+//         $router.push("/describe");
+//     } catch (error) {
+//         ElMessage({
+//             type: "error",
+//             message: `That doesn't look like an RO Crate file`,
+//             duration: 5000,
+//             center: true,
+//         });
+//     }
+// }
 
 async function loadFolder() {
     try {
