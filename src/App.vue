@@ -1,11 +1,23 @@
 <template>
     <div>
-        <div v-if="!data.unsupported">
+        <div v-if="data.supported">
             <router-view />
         </div>
-        <div v-else class="text-center bg-blue-200 p-4">
-            Oh dear - this browser doesn't have the capability required for this to work! Please use
-            Google Chrome. Hopefully the other browsers will have support soon.
+        <div v-else class="flex flex-col space-y-10 text-lg items-center bg-blue-200 p-4">
+            <div>
+                Oh dear - this browser doesn't have the capability required for this to work! Try
+                using:
+            </div>
+            <div class="flex flex-row space-x-10">
+                <div class="flex flex-col items-center">
+                    <div><i class="fa-brands fa-chrome"></i></div>
+                    <div>Google Chrome</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div><i class="fa-brands fa-edge"></i></div>
+                    <div>Microsoft Edge</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -20,7 +32,7 @@ import { detect } from "detect-browser";
 const browser = detect();
 
 const data = reactive({
-    unsupported: false,
+    supported: false,
 });
 
 onMounted(async () => {
@@ -42,7 +54,7 @@ onMounted(async () => {
     // } else {
     //     data.unsupported = browser.name !== "chrome" || parseInt(browser.version) < 86;
     // }
-    data.unsupported = browser.name !== "chrome" || parseInt(browser.version) < 86;
+    data.supported = "showOpenFilePicker" in window ? true : false;
 });
 
 // async function retrieveCrate(crate) {
