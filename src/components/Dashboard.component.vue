@@ -33,11 +33,9 @@
 </template>
 
 <script setup>
-import { ElMessage } from "element-plus";
 import { loadFile as loadFileHandler, loadFolder as loadFolderHandler } from "./lib";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import has from "lodash-es/has";
 const $store = useStore();
 const $router = useRouter();
 
