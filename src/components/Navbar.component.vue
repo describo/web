@@ -1,69 +1,57 @@
 <template>
-    <div class="sticky top-0 z-50 flex flex-row bg-indigo-200 p-2 space-x-4">
+    <div class="sticky top-0 z-50 flex flex-row items-center bg-indigo-200 p-2 space-x-4">
         <div class="text-lg mr-2 flex flex-row space-x-2">
-            <!-- <img alt="Describo" class="min-h-full" src="/ro-crate-logo.svg" width="36" />
-            <div class="pt-1 text-xl">
-            </div> -->
             <a href="https://describo.github.io" target="_blank" class="text-indigo-800">
                 <img :src="describoLogo" class="h-20" />
             </a>
         </div>
-        <div class="pt-4">
-            <el-select
-                v-model="data.selectedLanguage"
-                placeholder="Select a language"
-                @change="setLanguage"
-            >
-                <el-option
-                    v-for="item in data.languages"
-                    :key="item.name"
-                    :label="item.name"
-                    :value="item.code"
-                >
-                </el-option>
-            </el-select>
-        </div>
+
         <div class="flex-grow"></div>
-        <div v-if="$route.path === '/describe'" class="flex flex-row space-x-10 pt-4">
-            <div class="flex flex-row space-x-2">
-                <div class="pt-1"><i class="fa-solid fa-folder"></i> {{ folder }}</div>
-                <el-button @click="goToDashboard" type="danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                </el-button>
-            </div>
-            <div v-if="!profile">
-                <el-button
-                    @click="data.profileDialogVisible = !data.profileDialogVisible"
-                    type="primary"
-                >
-                    Apply a profile
-                </el-button>
-            </div>
-            <div v-else class="flex flex-row space-x-2">
-                <div class="pt-1">
-                    <i class="fa-solid fa-sliders"></i> {{ profile.metadata.name }} :
-                    {{ profile.metadata.version }}
+        <div class="flex flex-col space-y-2 items-end">
+            <div class="flex flex-row space-x-4" v-if="$route.path === '/describe'">
+                <div class="flex flex-row space-x-2">
+                    <div><i class="fa-solid fa-folder"></i> {{ folder }}</div>
+                    <div>
+                        <el-button @click="goToDashboard" type="danger">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </el-button>
+                    </div>
                 </div>
-                <div>
-                    <el-button @click="unloadProfile" type="danger">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </el-button>
+                <div v-if="!profile">
                     <el-button
                         @click="data.profileDialogVisible = !data.profileDialogVisible"
                         type="primary"
                     >
-                        Change profile
+                        Apply a profile
                     </el-button>
                 </div>
+                <div v-else class="flex flex-row space-x-2">
+                    <div>
+                        <i class="fa-solid fa-sliders"></i> {{ profile?.metadata?.name }} :
+                        {{ profile?.metadata?.version }}
+                    </div>
+                    <div>
+                        <el-button @click="unloadProfile" type="danger">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </el-button>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-row">
-                <el-button
-                    @click="saveCrate"
-                    :type="data.saveButtonType"
-                    :disabled="data.saveButtonType !== 'primary'"
-                >
-                    <i class="fa-solid fa-save"></i>&nbsp;{{ data.saveButtonText }}
-                </el-button>
+            <div class="flex flex-row space-x-2">
+                <div v-if="$route.path === '/describe'">
+                    <el-button
+                        @click="saveCrate"
+                        :type="data.saveButtonType"
+                        :disabled="data.saveButtonType !== 'primary'"
+                    >
+                        <i class="fa-solid fa-save"></i>&nbsp;{{ data.saveButtonText }}
+                    </el-button>
+                </div>
+                <div>
+                    <el-button @click="data.controlsDrawerVisible = !data.controlsDrawerVisible">
+                        <i class="fa-solid fa-gear"></i>
+                    </el-button>
+                </div>
             </div>
         </div>
     </div>
@@ -71,27 +59,30 @@
     <ProfileDialogComponent
         :dialog-visible="data.profileDialogVisible"
         @close="data.profileDialogVisible = false"
-        @load-profile="loadProfile"
+    />
+    <ControlsDrawerComponent
+        :dialog-visible="data.controlsDrawerVisible"
+        @close="data.controlsDrawerVisible = false"
     />
 </template>
 
 <script setup>
 import describoLogo from "../assets/describo-logo10-trans.png";
 import ProfileDialogComponent from "./ProfileDialog.component.vue";
+import ControlsDrawerComponent from "./ControlsDrawer.component.vue";
 import { reactive, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElButton } from "element-plus";
 const $store = useStore();
 const $router = useRouter();
 const $route = useRoute();
 
 const data = reactive({
+    controlsDrawerVisible: false,
     profileDialogVisible: false,
     saveButtonType: "primary",
     saveButtonText: "save",
-    languages: $store.state.languages,
-    selectedLanguage: "en",
 });
 onBeforeMount(async () => {
     if (!$store.state.current.crate) {
@@ -113,9 +104,6 @@ function goToDashboard() {
     $router.push({ path: "/dashboard" });
 }
 
-function loadProfile(profile) {
-    $store.commit("setProfile", profile);
-}
 function unloadProfile() {
     $store.commit("setProfile", undefined);
 }
@@ -142,9 +130,5 @@ async function saveCrate() {
         data.saveButtonType = "primary";
         data.saveButtonText = "save";
     }, 3000);
-}
-
-function setLanguage(languageCode) {
-    $store.commit("setLanguage", languageCode);
 }
 </script>

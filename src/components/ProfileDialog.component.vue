@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        v-model="props.dialogVisible"
+        v-model="dialogVisible"
         title="Apply a profile"
         fullscreen
         destroy-on-close
@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { watch } from "vue";
 import GithubProfileExplorerComponent from "./GithubProfileExplorer.component.vue";
 import { loadProfileFromDisk as loadProfileFromDiskHandler } from "./lib";
 import { useStore } from "vuex";
@@ -39,9 +39,14 @@ const $emit = defineEmits(["close", "load-profile"]);
 const props = defineProps({
     dialogVisible: { type: Boolean },
 });
-const data = reactive({
-    loading: false,
-});
+
+let dialogVisible;
+watch(
+    () => props.dialogVisible,
+    () => {
+        dialogVisible = props.dialogVisible;
+    }
+);
 
 function closeDialog() {
     $emit("close");
@@ -57,7 +62,7 @@ async function loadProfileFromDisk() {
     }
 }
 function loadProfile(profile) {
-    $emit("load-profile", profile);
+    $store.commit("setProfile", profile);
     closeDialog();
 }
 </script>
