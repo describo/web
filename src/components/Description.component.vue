@@ -5,7 +5,8 @@
             :crate="data.crate"
             :profile="profile"
             :entityId="data.entityId"
-            :language="language.code"
+            :language="configuration.selectedLanguage"
+            :purgeUnlinkedEntities="configuration.purgeUnlinkedEntities"
             :enableInternalRouting="false"
             tab-location="right"
             @ready="data.loading = false"
@@ -36,7 +37,7 @@ const data = reactive({
     url: undefined,
 });
 
-let language = computed(() => $store.state.current.language);
+let configuration = computed(() => $store.state.current.configuration);
 onMounted(async () => {
     if (!$store.state.current.crate) $router.push("/dashboard");
     data.crate = $store.state.current.crate;
