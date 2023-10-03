@@ -23,6 +23,9 @@ const mutations = {
             state.current.crate = { ...crate };
         }
     },
+    setConfiguration(state, configuration) {
+        state.current.configuration = { ...configuration };
+    },
     setLanguage(state, languageCode) {
         let language = state.languages.filter((l) => l.code === languageCode)[0];
         state.current.language = { ...language };
@@ -53,7 +56,7 @@ function resetState() {
             { name: "Magyar", code: "hu" },
         ],
         current: {
-            language: { name: "English", value: "en" },
+            configuration: {},
             folderHandle: undefined,
             fileHandle: undefined,
             crate: undefined,
