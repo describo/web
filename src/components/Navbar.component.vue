@@ -70,7 +70,7 @@
 import describoLogo from "../assets/describo-logo10-trans.png";
 import ProfileDrawerComponent from "./ProfileDrawer.component.vue";
 import ControlsDrawerComponent from "./ControlsDrawer.component.vue";
-import { reactive, computed, onBeforeMount } from "vue";
+import { reactive, computed, onBeforeMount, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import { ElMessage, ElButton } from "element-plus";
@@ -85,6 +85,14 @@ const data = reactive({
     saveButtonText: "save",
 });
 let configuration = computed(() => $store.state.current.configuration);
+watch(
+    () => $store.state.current.crate,
+    () => {
+        if ($route.path === "/describe" && configuration.value.autoSave) {
+            saveCrate();
+        }
+    }
+);
 
 onBeforeMount(async () => {
     if (!$store.state.current.crate) {
