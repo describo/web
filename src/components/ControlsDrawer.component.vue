@@ -13,33 +13,43 @@
                 <div class="text-xl">Preferences</div>
                 <el-button @click="closeDialog"> <i class="fa-solid fa-xmark"></i></el-button>
             </template>
-            <div class="class flex flex-col">
-                <el-form :model="data.form" label-position="top">
-                    <el-form-item label="Language">
-                        <el-select
-                            class="w-full"
-                            v-model="data.selectedLanguage"
-                            placeholder="Select a language"
-                            @change="setLanguage"
+            <el-form :model="data.form" label-position="top" class="flex flex-col space-y-4 w-full">
+                <el-form-item label="Language">
+                    <el-select
+                        class="w-full"
+                        v-model="data.form.selectedLanguage"
+                        placeholder="Select a language"
+                    >
+                        <el-option
+                            v-for="item in data.languages"
+                            :key="item.name"
+                            :label="item.name"
+                            :value="item.code"
                         >
-                            <el-option
-                                v-for="item in data.languages"
-                                :key="item.name"
-                                :label="item.name"
-                                :value="item.code"
-                            >
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-form>
-            </div>
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-switch
+                        v-model="data.form.autoSave"
+                        active-text="Save changes automatically"
+                    />
+                </el-form-item>
+                <el-form-item>
+                    <el-switch
+                        v-model="data.form.purgeUnlinkedEntities"
+                        active-text="Automatically remove unlinked entities and disconnected subtrees."
+                    />
+                </el-form-item>
+            </el-form>
         </el-drawer>
     </div>
 </template>
 
 <script setup>
 import { reactive, watch } from "vue";
-import { ElSelect, ElOption, ElDrawer } from "element-plus";
+import { ElDrawer, ElButton, ElForm, ElFormItem, ElSelect, ElOption, ElSwitch } from "element-plus";
 import { useStore } from "vuex";
 const $store = useStore();
 
@@ -48,6 +58,18 @@ const props = defineProps({
     dialogVisible: { type: Boolean },
 });
 
+const defaultConfiguration = {
+    selectedLanguage: "en",
+    autoSave: true,
+    purgeUnlinkedEntities: true,
+};
+
+const data = reactive({
+    form: window.localStorage?.form ? JSON.parse(window.localStorage.form) : defaultConfiguration,
+    languages: $store.state.languages,
+});
+$store.commit("setConfiguration", { ...data.form });
+
 let dialogVisible;
 watch(
     () => props.dialogVisible,
@@ -55,16 +77,16 @@ watch(
         dialogVisible = props.dialogVisible;
     }
 );
-
-const data = reactive({
-    languages: $store.state.languages,
-    selectedLanguage: "en",
-});
+watch(
+    () => data.form,
+    () => {
+        window.localStorage.form = JSON.stringify(data.form);
+        $store.commit("setConfiguration", { ...data.form });
+    },
+    { deep: true }
+);
 
 function closeDialog() {
     $emit("close");
-}
-function setLanguage(languageCode) {
-    $store.commit("setLanguage", languageCode);
 }
 </script>
