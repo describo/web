@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <ProfileDialogComponent
+    <ProfileDrawerComponent
         :dialog-visible="data.profileDialogVisible"
         @close="data.profileDialogVisible = false"
     />
@@ -68,7 +68,7 @@
 
 <script setup>
 import describoLogo from "../assets/describo-logo10-trans.png";
-import ProfileDialogComponent from "./ProfileDialog.component.vue";
+import ProfileDrawerComponent from "./ProfileDrawer.component.vue";
 import ControlsDrawerComponent from "./ControlsDrawer.component.vue";
 import { reactive, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
@@ -84,6 +84,8 @@ const data = reactive({
     saveButtonType: "primary",
     saveButtonText: "save",
 });
+let configuration = computed(() => $store.state.current.configuration);
+
 onBeforeMount(async () => {
     if (!$store.state.current.crate) {
         $router.push("/dashboard");
