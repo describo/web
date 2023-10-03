@@ -1,12 +1,17 @@
 <template>
-    <el-dialog
+    <el-drawer
         v-model="dialogVisible"
-        title="Apply a profile"
-        fullscreen
+        title="Profiles"
+        size="50%"
+        :show-close="false"
         destroy-on-close
-        @close="closeDialog"
+        direction="rtl"
+        @closed="closeDialog"
     >
-        <template #header>Select a profile to use with this crate</template>
+        <template #header>
+            <div class="text-xl">Profiles</div>
+            <el-button @click="closeDialog"> <i class="fa-solid fa-xmark"></i></el-button>
+        </template>
         <div class="flex flex-col space-y-6" v-if="props.dialogVisible">
             <div class="flex flex-row space-x-4 bg-indigo-200 p-4 rounded">
                 <div class="text-lg">Load a profile from your computer</div>
@@ -25,10 +30,11 @@
                 <GithubProfileExplorerComponent @load-profile="loadProfile" />
             </div>
         </div>
-    </el-dialog>
+    </el-drawer>
 </template>
 
 <script setup>
+import { ElDrawer, ElButton } from "element-plus";
 import { watch } from "vue";
 import GithubProfileExplorerComponent from "./GithubProfileExplorer.component.vue";
 import { loadProfileFromDisk as loadProfileFromDiskHandler } from "./lib";
