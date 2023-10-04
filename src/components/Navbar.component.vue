@@ -121,6 +121,7 @@ async function saveCrate() {
     try {
         let fileHandle = $store.state.current.fileHandle;
         let crate = $store.state.current.crate;
+        if (!crate) return;
         const writable = await fileHandle.createWritable();
         await writable.write(JSON.stringify(crate, null, 2));
         await writable.close();
