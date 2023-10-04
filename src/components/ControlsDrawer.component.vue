@@ -29,7 +29,13 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-
+                <el-form-item label="Tab location when describing data">
+                    <el-radio-group v-model="data.form.tabLocation">
+                        <el-radio label="left">Left</el-radio>
+                        <el-radio label="top">Top</el-radio>
+                        <el-radio label="right">Right</el-radio>
+                    </el-radio-group>
+                </el-form-item>
                 <el-form-item>
                     <el-switch
                         v-model="data.form.autoSave"
@@ -49,7 +55,17 @@
 
 <script setup>
 import { reactive, watch } from "vue";
-import { ElDrawer, ElButton, ElForm, ElFormItem, ElSelect, ElOption, ElSwitch } from "element-plus";
+import {
+    ElDrawer,
+    ElButton,
+    ElForm,
+    ElFormItem,
+    ElSelect,
+    ElOption,
+    ElSwitch,
+    ElRadioGroup,
+    ElRadio,
+} from "element-plus";
 import { useStore } from "vuex";
 const $store = useStore();
 
@@ -62,10 +78,13 @@ const defaultConfiguration = {
     selectedLanguage: "en",
     autoSave: true,
     purgeUnlinkedEntities: true,
+    tabLocation: "right",
 };
 
 const data = reactive({
-    form: window.localStorage?.form ? JSON.parse(window.localStorage.form) : defaultConfiguration,
+    form: window.localStorage?.form
+        ? { ...defaultConfiguration, ...JSON.parse(window.localStorage.form) }
+        : defaultConfiguration,
     languages: $store.state.languages,
 });
 $store.commit("setConfiguration", { ...data.form });

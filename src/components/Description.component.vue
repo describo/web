@@ -8,7 +8,7 @@
             :language="configuration.selectedLanguage"
             :purgeUnlinkedEntities="configuration.purgeUnlinkedEntities"
             :enableInternalRouting="false"
-            tab-location="right"
+            :tab-location="configuration.tabLocation"
             @ready="data.loading = false"
             @save:crate="storeCrate"
             @navigation="handleNavigation"
