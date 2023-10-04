@@ -26,21 +26,15 @@ const mutations = {
     setConfiguration(state, configuration) {
         state.current.configuration = { ...configuration };
     },
-    setLanguage(state, languageCode) {
-        let language = state.languages.filter((l) => l.code === languageCode)[0];
-        state.current.language = { ...language };
+    setErrors(state, errors) {
+        state.current.errors = [...errors];
+    },
+    setWarnings(state, warnings) {
+        state.current.warnings = [...warnings];
     },
 };
 
-const actions = {
-    // async storeFolder({ commit, state }, { folderHandle, fileHandle, crate }) {
-    //     commit("setFolder", { folderHandle, fileHandle });
-    //     commit("setCrate", crate);
-    // },
-    // async storeProfile({ commit, state }, profile) {
-    //     commit("setProfile", profile);
-    // },
-};
+const actions = {};
 
 export const store = new createStore({
     state: resetState(),
@@ -61,6 +55,8 @@ function resetState() {
             fileHandle: undefined,
             crate: undefined,
             profile: undefined,
+            errors: [],
+            warnins: [],
         },
     };
 }

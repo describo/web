@@ -12,6 +12,8 @@
             @ready="data.loading = false"
             @save:crate="storeCrate"
             @navigation="handleNavigation"
+            @error="handleErrors"
+            @warning="handleWarnings"
         />
         <div v-if="data.error">There seems to be an issue with this application!</div>
     </div>
@@ -66,5 +68,12 @@ function handleNavigation(event) {
         $router?.push({ query: { id } });
     }
     data.entityId = id;
+}
+
+function handleErrors({ errors }) {
+    $store.commit("setErrors", errors);
+}
+function handleWarnings({ warnings }) {
+    $store.commit("setWarnings", warnings);
 }
 </script>

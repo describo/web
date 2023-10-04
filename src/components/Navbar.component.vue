@@ -19,7 +19,7 @@
                 </div>
                 <div v-if="!profile">
                     <el-button
-                        @click="data.profileDialogVisible = !data.profileDialogVisible"
+                        @click="data.profileDrawerVisible = !data.profileDrawerVisible"
                         type="primary"
                     >
                         Apply a profile
@@ -38,14 +38,29 @@
                 </div>
             </div>
             <div class="flex flex-row space-x-2">
-                <div v-if="$route.path === '/describe'">
-                    <el-button
-                        @click="saveCrate"
-                        :type="data.saveButtonType"
-                        :disabled="data.saveButtonType !== 'primary'"
+                <div v-if="$route.path === '/describe'" class="flex flex-row space-x-2">
+                    <div>
+                        <el-button
+                            @click="saveCrate"
+                            :type="data.saveButtonType"
+                            :disabled="data.saveButtonType !== 'primary'"
+                        >
+                            <i class="fa-solid fa-save"></i>&nbsp;{{ data.saveButtonText }}
+                        </el-button>
+                    </div>
+                    <div
+                        v-if="
+                            $store.state.current?.errors?.length ||
+                            $store.state.current?.warnings?.length
+                        "
                     >
-                        <i class="fa-solid fa-save"></i>&nbsp;{{ data.saveButtonText }}
-                    </el-button>
+                        <el-button
+                            @click="data.reportsDrawerVisible = !data.reportsDrawerVisible"
+                            type="warning"
+                        >
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </el-button>
+                    </div>
                 </div>
                 <div>
                     <el-button @click="data.controlsDrawerVisible = !data.controlsDrawerVisible">
@@ -57,12 +72,16 @@
     </div>
 
     <ProfileDrawerComponent
-        :dialog-visible="data.profileDialogVisible"
-        @close="data.profileDialogVisible = false"
+        :dialog-visible="data.profileDrawerVisible"
+        @close="data.profileDrawerVisible = false"
     />
     <ControlsDrawerComponent
         :dialog-visible="data.controlsDrawerVisible"
         @close="data.controlsDrawerVisible = false"
+    />
+    <ReportsDrawerComponent
+        :dialog-visible="data.reportsDrawerVisible"
+        @close="data.reportsDrawerVisible = false"
     />
 </template>
 
@@ -70,6 +89,7 @@
 import describoLogo from "../assets/describo-logo10-trans.png";
 import ProfileDrawerComponent from "./ProfileDrawer.component.vue";
 import ControlsDrawerComponent from "./ControlsDrawer.component.vue";
+import ReportsDrawerComponent from "./DataReports.component.vue";
 import { reactive, computed, onBeforeMount, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
@@ -80,7 +100,8 @@ const $route = useRoute();
 
 const data = reactive({
     controlsDrawerVisible: false,
-    profileDialogVisible: false,
+    profileDrawerVisible: false,
+    reportsDrawerVisible: false,
     saveButtonType: "primary",
     saveButtonText: "save",
 });
@@ -108,9 +129,11 @@ let folder = computed(() => {
         return $store.state.current.fileHandle?.name;
     }
 });
+let errors = computed(() => $store.state.current.errors);
+let warnings = computed(() => $store.state.current.warnings);
 
 function goToDashboard() {
-    $store.commit("setCrate", undefined);
+    $store.commit("reset");
     $router.push({ path: "/dashboard" });
 }
 
