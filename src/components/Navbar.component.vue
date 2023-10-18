@@ -129,8 +129,6 @@ let folder = computed(() => {
         return $store.state.current.fileHandle?.name;
     }
 });
-let errors = computed(() => $store.state.current.errors);
-let warnings = computed(() => $store.state.current.warnings);
 
 function goToDashboard() {
     $store.commit("reset");
