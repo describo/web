@@ -1,15 +1,13 @@
 <template>
     <div class="flex flex-col">
         <describo-crate-builder
-            v-if="!data.error && data.crate"
-            :crate="data.crate"
+            :crate="crate"
             :profile="profile"
             :entityId="data.entityId"
             :language="configuration.selectedLanguage"
             :purgeUnlinkedEntities="configuration.purgeUnlinkedEntities"
             :enableInternalRouting="false"
             :tab-location="configuration.tabLocation"
-            @ready="data.loading = false"
             @save:crate="storeCrate"
             @navigation="handleNavigation"
             @error="handleErrors"
@@ -20,8 +18,7 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
-import { onMounted, onBeforeUnmount, computed, watch } from "vue";
+import { reactive, onMounted, onBeforeUnmount, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import isEmpty from "lodash-es/isEmpty";
@@ -29,22 +26,21 @@ const $store = useStore();
 const $router = useRouter();
 const $route = useRoute();
 
+const crate = computed(() => {
+    if (!$store.state.current.crate) $router.push("/dashboard");
+    return $store.state.current.crate;
+});
+let profile = computed(() => $store.state.current.profile);
+let watcher = [];
+
 const data = reactive({
-    loading: false,
     error: false,
     entityId: undefined,
-    crate: undefined,
-    profile: undefined,
-    folder: undefined,
-    url: undefined,
 });
 
 let configuration = computed(() => $store.state.current.configuration);
 onMounted(async () => {
-    if (!$store.state.current.crate) $router.push("/dashboard");
-    data.crate = $store.state.current.crate;
-
-    data.routeWatcher = watch(
+    watcher = watch(
         () => $route.query?.id,
         (n, o) => {
             if (n !== o && n !== undefined) data.entityId = decodeURIComponent(atob(n));
@@ -52,10 +48,8 @@ onMounted(async () => {
     );
 });
 onBeforeUnmount(() => {
-    data.routeWatcher();
+    watcher();
 });
-
-let profile = computed(() => $store.state.current.profile);
 
 async function storeCrate({ crate }) {
     $store.commit("setCrate", crate);
