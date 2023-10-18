@@ -27,10 +27,10 @@ const mutations = {
         state.current.configuration = { ...configuration };
     },
     setErrors(state, errors) {
-        state.current.errors = [...errors];
+        state.current.errors = { ...errors };
     },
     setWarnings(state, warnings) {
-        state.current.warnings = [...warnings];
+        state.current.warnings = { ...warnings };
     },
 };
 
@@ -55,8 +55,8 @@ function resetState() {
             fileHandle: undefined,
             crate: undefined,
             profile: undefined,
-            errors: [],
-            warnins: [],
+            errors: {},
+            warnings: {},
         },
     };
 }
