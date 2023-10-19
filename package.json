@@ -17,7 +17,7 @@
         "vuex": "^4.1.0"
     },
     "devDependencies": {
-        "@describo/crate-builder-component": "^0.49.2",
+        "@describo/crate-builder-component": "^0.49.3",
         "@vitejs/plugin-vue": "^4.4.0",
         "autoprefixer": "^10.4.16",
         "postcss": "^8.4.31",
