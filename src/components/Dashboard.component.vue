@@ -33,6 +33,7 @@
 </template>
 
 <script setup>
+import { ElCard, ElButton } from "element-plus";
 import { loadFile as loadFileHandler, loadFolder as loadFolderHandler } from "./lib";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
