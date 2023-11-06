@@ -14,10 +14,12 @@ fi
 # build and commit it
 npm run build
 git add .
-git commit -m 'Deploy release'
+git commit -m 'build application release'
 
 # version the code
-npm version --no-git-tag-version $1
+version=$(npm version --no-git-tag-version $1)
+git tag $version
+git commit -a -m "tag and bump version"
 
 # push it to github to trigger container builds
 git push origin master --tags
