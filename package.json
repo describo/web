@@ -10,18 +10,18 @@
     },
     "dependencies": {
         "detect-browser": "^5.3.0",
-        "element-plus": "^2.4.1",
+        "element-plus": "^2.4.2",
         "lodash-es": "^4.17.21",
-        "vue": "^3.3.6",
+        "vue": "^3.3.7",
         "vue-router": "^4.2.5",
         "vuex": "^4.1.0"
     },
     "devDependencies": {
-        "@describo/crate-builder-component": "^0.50.2",
+        "@describo/crate-builder-component": "^0.50.4",
         "@vitejs/plugin-vue": "^4.4.0",
         "autoprefixer": "^10.4.16",
         "postcss": "^8.4.31",
-        "tailwindcss": "^3.3.2",
+        "tailwindcss": "^3.3.5",
         "vite": "^4.5.0"
     }
 }
