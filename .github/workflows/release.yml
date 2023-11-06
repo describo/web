@@ -20,6 +20,6 @@ jobs:
       - name: Deploy app to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: docs
           single-commit: true
           clean: true
