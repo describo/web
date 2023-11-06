@@ -1,5 +1,10 @@
 # Describo Web
 
+For more information about Describo see: [https://describo.github.io](https://describo.github.io)
+
+For a human friendly description of this app - Describo Web - see
+[https://describo.github.io/#/web](https://describo.github.io/#/web)
+
 -   To develop the application: `npm run develop`
--   To build a release: `npm version major | minor | patch && git push origin master --tags` - The
-    release will be built with github actions and deployed.
+-   To build and deploy a release: `./deploy-app..sh [ minor | patch ]` - The release will be built
+    and then deployed via an action to github pages.
