@@ -1,9 +1,22 @@
 <template>
     <div class="sticky top-0 z-50 flex flex-row items-center bg-indigo-200 p-2 space-x-4">
         <div class="text-lg mr-2 flex flex-row space-x-2">
-            <a href="https://describo.github.io" target="_blank" class="text-indigo-800">
+            <!-- <a href="https://describo.github.io" target="_blank" class="text-indigo-800">
                 <img :src="describoLogo" class="h-20" />
-            </a>
+            </a> -->
+            <img :src="describoLogo" class="h-20" />
+        </div>
+        <div class="bg-slate-100 py-2 px-8 rounded">
+            <div>
+                Try Describo Desktop:
+                <a
+                    href="https://describo.github.io/#/desktop"
+                    target="_blank"
+                    class="text-blue-800"
+                >
+                    https://describo.github.io/#/desktop
+                </a>
+            </div>
         </div>
 
         <div class="flex-grow"></div>
@@ -63,8 +76,11 @@
                     </div>
                 </div>
                 <div>
-                    <el-button @click="data.controlsDrawerVisible = !data.controlsDrawerVisible">
-                        <i class="fa-solid fa-gear"></i>
+                    <el-button
+                        @click="data.controlsDrawerVisible = !data.controlsDrawerVisible"
+                        type="primary"
+                    >
+                        <i class="fa-solid fa-gear"></i>&nbsp; Settings
                     </el-button>
                 </div>
             </div>
