@@ -6,18 +6,6 @@
             </a> -->
             <img :src="describoLogo" class="h-20" />
         </div>
-        <div class="bg-slate-100 py-2 px-8 rounded">
-            <div>
-                Try Describo Desktop:
-                <a
-                    href="https://describo.github.io/#/desktop"
-                    target="_blank"
-                    class="text-blue-800"
-                >
-                    https://describo.github.io/#/desktop
-                </a>
-            </div>
-        </div>
 
         <div class="flex-grow"></div>
         <div class="flex flex-col space-y-2 items-end">

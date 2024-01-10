@@ -19,6 +19,13 @@
             </a>
         </el-card>
 
+        <div class="bg-slate-200 rounded-lg px-6 py-10 text-center">
+            For a more full featured environment have a look at Describo Desktop:
+            <a href="https://describo.github.io/desktop" target="_blank" class="text-blue-800">
+                https://describo.github.io/desktop
+            </a>
+        </div>
+
         <el-card>
             <template #header> Select a folder of data to describe </template>
             <div class="p-4 my-2">
@@ -34,31 +41,11 @@
 
 <script setup>
 import { ElCard, ElButton } from "element-plus";
-import { loadFile as loadFileHandler, loadFolder as loadFolderHandler } from "./lib";
+import { loadFolder as loadFolderHandler } from "./lib";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const $store = useStore();
 const $router = useRouter();
-
-// async function loadFile() {
-//     try {
-//         let { fileHandle, crate } = await loadFileHandler();
-//         if (!has(crate, "@context") || !has(crate, "@graph")) {
-//             console.log("not a crate file");
-//             throw new Error(`Not an RO Crate file`);
-//         }
-//         $store.commit("setFolder", { fileHandle });
-//         $store.commit("setCrate", crate);
-//         $router.push("/describe");
-//     } catch (error) {
-//         ElMessage({
-//             type: "error",
-//             message: `That doesn't look like an RO Crate file`,
-//             duration: 5000,
-//             center: true,
-//         });
-//     }
-// }
 
 async function loadFolder() {
     try {
