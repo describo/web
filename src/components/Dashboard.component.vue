@@ -19,23 +19,24 @@
             </a>
         </el-card>
 
-        <div class="bg-slate-200 rounded-lg px-6 py-10 text-center">
-            For a more full featured environment have a look at Describo Desktop:
-            <a href="https://describo.github.io/desktop" target="_blank" class="text-blue-800">
-                https://describo.github.io/desktop
-            </a>
-        </div>
-
-        <el-card>
-            <template #header> Select a folder of data to describe </template>
-            <div class="p-4 my-2">
-                Get started by selecting a folder to describe. If it contains an RO Crate file, that
-                file will be loaded. If not, a default RO Crate file will be created for you. It can
-                be on your local disk or cloud storage that is connected to your computer; e.g.
-                Dropbox or Google Drive.
+        <div class="flex flex-row space-x-2">
+            <el-card>
+                <template #header> Select a folder of data to describe </template>
+                <div class="p-4 my-2">
+                    Get started by selecting a folder to describe. If it contains an RO Crate file,
+                    that file will be loaded. If not, a default RO Crate file will be created for
+                    you. It can be on your local disk or cloud storage that is connected to your
+                    computer; e.g. Dropbox or Google Drive.
+                </div>
+                <el-button @click="loadFolder" type="primary">Select a folder to work on</el-button>
+            </el-card>
+            <div class="bg-slate-200 rounded-lg px-6 py-10 text-center">
+                For a more full featured environment have a look at Describo Desktop:
+                <a href="https://describo.github.io/desktop" target="_blank" class="text-blue-800">
+                    https://describo.github.io/desktop
+                </a>
             </div>
-            <el-button @click="loadFolder" type="primary">Select a folder to work on</el-button>
-        </el-card>
+        </div>
     </div>
 </template>
 
