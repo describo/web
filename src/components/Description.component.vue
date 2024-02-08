@@ -61,7 +61,7 @@ function handleNavigation(event) {
     } else {
         $router?.push({ query: { id } });
     }
-    data.entityId = id;
+    data.entityId = event["@id"];
 }
 
 function handleErrors({ errors }) {
