@@ -9,19 +9,19 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@describo/crate-builder-component": "^0.61.0",
         "detect-browser": "^5.3.0",
-        "element-plus": "^2.5.5",
+        "element-plus": "^2.6.3",
         "lodash-es": "^4.17.21",
-        "vue": "^3.4.15",
-        "vue-router": "^4.2.5",
+        "vue": "^3.4.21",
+        "vue-router": "^4.3.0",
         "vuex": "^4.1.0"
     },
     "devDependencies": {
-        "@describo/crate-builder-component": "^0.57.1",
-        "@vitejs/plugin-vue": "^5.0.3",
-        "autoprefixer": "^10.4.17",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.4.1",
-        "vite": "^5.0.12"
+        "@vitejs/plugin-vue": "^5.0.4",
+        "autoprefixer": "^10.4.19",
+        "postcss": "^8.4.38",
+        "tailwindcss": "^3.4.3",
+        "vite": "^5.2.7"
     }
 }
