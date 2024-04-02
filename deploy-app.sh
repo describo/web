@@ -15,6 +15,7 @@ fi
 npm run build
 git add .
 git commit -m 'build application release'
+git push origin master --tags
 
 # version the code
 version=$(npm version --no-git-tag-version $1)
