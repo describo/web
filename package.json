@@ -1,7 +1,7 @@
 {
     "name": "@describo/web",
     "private": true,
-    "version": "0.5.0",
+    "version": "0.6.0",
     "type": "module",
     "scripts": {
         "develop": "vite",
